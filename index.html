@@ -1,0 +1,910 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Shradhanjali — Restaurant • Buffet • Wedding Lodging</title>
+  <meta name="description" content="Shradhanjali Guest House — Restaurant, Buffet, Wedding Lodging & Events in Santiniketan. Reserve your stay or event today.">
+  <meta name="keywords" content="Shradhanjali, Restaurant, Wedding, Buffet, Santiniketan, Guest House">
+
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon"
+        href="img/logo.jpg"
+        type="image/x-icon">
+
+  <style>
+    :root{
+      --cream:#fdf8f3;
+      --deep-green:#0b4f40;
+      --accent:#c8a46b;
+      --card-bg: #ffffff;
+      --muted:#6b6b6b;
+      --glass: rgba(255,255,255,0.6);
+    }
+    /* Reset & Base */
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Poppins',sans-serif;background:var(--cream);color:#222;line-height:1.45}
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+    /* === Popup Styles === */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.4s ease, visibility 0.10s;
+}
+
+.popup-overlay.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup-box {
+  position: relative;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 40%;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.25);
+  animation: popupZoom 0.6s ease;
+}
+
+.popup-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.popup-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  background: rgba(255,255,255,0.8);
+  border: none;
+  font-size: 28px;
+  color: #333;
+  cursor: pointer;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  line-height: 32px;
+  text-align: center;
+  transition: background 0.2s;
+}
+
+.popup-close:hover {
+  background: rgba(255,255,255,1);
+}
+
+@keyframes popupZoom {
+  from {transform: scale(0.8); opacity: 0;}
+  to {transform: scale(1); opacity: 1;}
+}
+
+
+    /* Navbar */
+    header{background:#white;position:relative;top:0;margin-top:15px; z-index:60}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:18px 0}
+    .brand{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--deep-green);font-weight:600}
+    nav ul{display:flex;gap:18px;align-items:center;margin:0;padding:0;list-style:none}
+    nav a{padding:6px 8px;border-radius:6px;font-weight:600;color:var(--deep-green)}
+    .btn-cta{background:var(--deep-green);color:white;padding:10px 14px;border-radius:8px}
+    /* Mobile nav */
+    .hamburger{display:none;background:none;border:0;font-size:22px;color:var(--deep-green)}
+    @media (max-width:820px){
+    nav ul{position:fixed;right:0;top:0;height:100vh;width:260px;background:var(--cream);flex-direction:column;padding:80px 20px;transform:translateX(110%);transition:transform .28s ease;box-shadow:-8px 0 30px rgba(10,10,10,.08)}
+    nav ul.open{transform:translateX(0)}
+    .hamburger{display:block}
+    }
+    
+
+    /* Hero */
+    .hero{padding:86px 0 60px;background:linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.9) 100%)}
+    .hero-grid{display:grid;grid-template-columns:1fr 520px;gap:40px;align-items:center}
+    .hero-title{font-family:'Playfair Display',serif;color:var(--deep-green);font-size:2.8rem;margin:0 0 14px}
+    .hero-sub{color:var(--muted);margin-bottom:20px}
+    .hero-cta{display:flex;gap:12px;flex-wrap:wrap}
+    .hero-cta .btn{padding:12px 16px;border-radius:8px;font-weight:600}
+    .btn-outline{background:transparent;border:2px solid var(--deep-green);color:var(--deep-green)}
+    .hero-image{height: 560px;width: 410px;;border-radius:14px;overflow:hidden;box-shadow:0 12px 32px rgba(10,10,10,.12)}
+    @media (max-width:920px){
+    .hero-grid{grid-template-columns:1fr; text-align:center}
+    .hero-image{margin-top:10px}
+    }
+
+    /* Services */
+    .services{padding:60px 0}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+    .service-card{background:var(--card-bg);border-radius:12px;padding:18px;box-shadow:0 8px 26px rgba(10,10,10,.06);text-align:left}
+    .service-card h3{margin:10px 0;color:var(--deep-green)}
+    .service-card p{color:var(--muted);margin:0}
+    .service-image{height:160px;border-radius:8px;overflow:hidden;margin-bottom:12px}
+
+    @media (max-width:920px){
+      .services-grid{grid-template-columns:1fr}
+    }
+
+    /* Highlights / Menu */
+    .highlights{padding:40px 0}
+    .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .menu-card{background:var(--card-bg);padding:16px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,.05)}
+    .menu-card h4{margin-top:0;color:var(--deep-green)}
+    @media (max-width:720px){.menu-grid{grid-template-columns:1fr}}
+
+    /* Rooms */
+    .rooms{padding:58px 0}
+    .rooms-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .room-card{background:var(--card-bg);border-radius:12px;overflow:hidden;box-shadow:0 12px 30px rgba(0,0,0,.06)}
+    .room-card .room-body{padding:16px}
+    .room-meta{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+    @media (max-width:920px){.rooms-grid{grid-template-columns:1fr 1fr}}
+    @media (max-width:620px){.rooms-grid{grid-template-columns:1fr}}
+
+    /* Collage (Your Experiences) */
+    .collage-section{padding:68px 0;text-align:center}
+    .collage-title{font-family:'Playfair Display',serif;font-size:2.2rem;color:var(--deep-green);margin-bottom:28px}
+    .collage-wrap{display:flex;justify-content:center;align-items:center;gap:0;position:relative;flex-wrap:nowrap;overflow:visible}
+    .collage-wrap img{width:360px;height:240px;object-fit:cover;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,.12);margin-left:-140px;transition:transform .35s ease}
+    .collage-wrap img:nth-child(1){margin-left:0;transform:translateY(10px)}
+    .collage-wrap img:nth-child(3){transform:translateY(-8px);z-index:4}
+    .collage-wrap img:hover{transform:scale(1.03);z-index:8}
+    @media (max-width:1024px){ .collage-wrap img{width:280px;height:200px;margin-left:-100px} }
+    @media (max-width:680px){ .collage-wrap{flex-wrap:wrap} .collage-wrap img{width:92%;margin-left:0;margin:10px 0;height:auto} }
+
+    /* Booking Form */
+    .booking{padding:48px 0;background:linear-gradient(180deg, rgba(200,164,107,.06), rgba(255,255,255,0));border-radius:12px;margin:18px 0}
+    .booking-grid{display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:start}
+    .form-card{background:var(--card-bg);padding:18px;border-radius:10px;box-shadow:0 10px 26px rgba(0,0,0,.06)}
+    .form-row{display:flex;gap:10px;margin-bottom:10px}
+    .form-row input,.form-row select, textarea, input[type="date"], input[type="time"]{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6}
+    .form-row textarea{min-height:110px;resize:vertical}
+    .booking-info{padding:18px}
+
+    @media (max-width:920px){ .booking-grid{grid-template-columns:1fr} }
+
+    /* Contact & Footer */
+    footer{padding:34px 0 60px;color:var(--muted)}
+    .footer-grid{display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
+    @media (max-width:820px){ .footer-grid{flex-direction:column} }
+
+    /* small utilities */
+    .muted{color:var(--muted)}
+    .caps{font-size:.85rem;letter-spacing:.08em;text-transform:uppercase;color:var(--deep-green);font-weight:700}
+    .section{padding:8px 0}
+    .center{display:flex;justify-content:center;align-items:center}
+    /* tiny scroll reveal */
+    .reveal{opacity:0;transform:translateY(20px);transition:all .6s ease}
+    .reveal.visible{opacity:1;transform:none}
+
+
+/* PREMIUM HOVER EFFECTS — LIGHT THEME */
+
+/* Buttons */
+.btn-cta {
+  background: var(--deep-green);
+  color: #fff;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 0 rgba(0,0,0,0);
+}
+.btn-cta:hover {
+  background: #0b644c;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  border: 2px solid var(--deep-green);
+  color: var(--deep-green);
+  background: transparent;
+  transition: all 0.3s ease;
+}
+.btn-outline:hover {
+  background: var(--deep-green);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+  transform: translateY(-2px);
+}
+
+/* Navbar Links */
+nav a {
+  position: relative;
+  color: #333;
+  transition: color 0.3s ease;
+}
+nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -3px;
+  width: 0%;
+  height: 2px;
+  background: var(--deep-green);
+  transition: width 0.3s ease;
+}
+nav a:hover::after {
+  width: 100%;
+}
+nav a:hover {
+  color: var(--deep-green);
+}
+
+/* Service Cards */
+.service-card {
+  background: #fff;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  cursor: pointer;
+}
+.service-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+.service-card img {
+  transition: transform 0.35s ease;
+}
+.service-card:hover img {
+  transform: scale(1.04);
+}
+
+/* Menu Cards */
+.menu-card {
+  background: #fff;
+  transition: all 0.35s ease;
+}
+.menu-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+}
+
+/* Room Cards */
+.room-card {
+  background: #fff;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+  cursor: pointer;
+}
+.room-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+.room-card img {
+  transition: transform 0.35s ease;
+}
+.room-card:hover img {
+  transform: scale(1.05);
+}
+
+/* Collage Images */
+.collage-wrap img {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border-radius: 10px;
+}
+.collage-wrap img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+  z-index: 10;
+}
+
+/* Footer */
+footer {
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(0,0,0,0.05);
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+  position: relative;
+  overflow: hidden;
+}
+footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(220,180,100,0.05), rgba(0,100,60,0.05));
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+footer:hover::before {
+  opacity: 1;
+}
+.footer-grid > div {
+  position: relative;
+  z-index: 1;
+  transition: transform 0.3s ease;
+}
+.footer-grid > div:hover {
+  transform: translateY(-4px);
+}
+
+/* Form Card Hover */
+.form-card {
+  background: #fff;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+.form-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 26px rgba(0,0,0,0.08);
+}
+
+/* =============================== */
+/* AUTO ROTATING IMAGE CAROUSEL */
+/* =============================== */
+.places-section {
+  text-align: center;
+  padding: 50px 0;
+  background: #faf9f7;
+}
+
+.places-section h2 {
+  font-size: 1.8rem;
+  margin-bottom: 30px;
+  color: #084b37;
+  font-weight: 600;
+}
+
+.carousel {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+  overflow: hidden;
+  position: relative;
+  border-radius: 16px;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.08);
+}
+
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  animation: scroll 35s linear infinite;
+}
+
+.carousel img {
+  width: 400px;
+  height: 250px;
+  border-radius: 16px;
+  object-fit: cover;
+  flex-shrink: 0;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.carousel img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .carousel img {
+    width: 280px;
+    height: 180px;
+  }
+}
+@media (max-width: 480px) {
+  .carousel img {
+    width: 220px;
+    height: 140px;
+  }
+}
+
+/* Rotate */
+
+:root{
+      --cream:#fdf8f3;
+      --deep-green:#0b4f40;
+      --accent:#c8a46b;
+      --card-bg: #ffffff;
+      --muted:#6b6b6b;
+      --glass: rgba(255,255,255,0.6);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:'Poppins',sans-serif;background:var(--cream);color:#222;line-height:1.45}
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+    .container{max-width:1200px;margin:0 auto;padding:0 20px}
+
+    .popup1-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); display: flex; justify-content: center; align-items: center; z-index: 999; visibility: hidden; opacity: 0; transition: opacity 0.4s ease, visibility 0.1s; }
+    .popup1-overlay.active { visibility: visible; opacity: 1; }
+    .popup1-box { position: relative; background: white; border-radius: 12px; overflow: hidden; max-width: 40%; box-shadow: 0 10px 40px rgba(0,0,0,0.25); animation: popupZoom 0.6s ease; }
+    .popup1-image { width: 100%; height: auto; display: block; }
+    .popup1-close { position: absolute; top: 8px; right: 10px; background: rgba(255,255,255,0.8); border: none; font-size: 28px; color: #333; cursor: pointer; border-radius: 50%; width: 36px; height: 36px; line-height: 32px; text-align: center; transition: background 0.2s; }
+    .popup1-close:hover { background: rgba(255,255,255,1); }
+    @keyframes popupZoom { from {transform: scale(0.8); opacity:0;} to {transform: scale(1); opacity:1;} }
+
+
+.gallery {
+      position: relative;
+      width: 90%;
+      max-width: 1200px;
+      height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      cursor: pointer;
+      margin: 0 auto;
+    }
+
+    .gallery img {
+      position: absolute;
+      width: 45%;
+      height: auto;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 1s ease;
+      user-select: none;
+    }
+
+    .gallery img.active { opacity: 1; transform: scale(1); z-index: 3; }
+    .gallery img.prev { opacity: 0.7; transform: translateX(-50%) scale(0.9); z-index: 2; }
+    .gallery img.next { opacity: 0.7; transform: translateX(50%) scale(0.9); z-index: 2; }
+    .gallery img.behind { opacity: 0.4; transform: scale(0.7); z-index: 1; }
+    .gallery img.zoomed { transform: scale(1.7) !important; z-index: 10; box-shadow: 0 15px 30px rgba(0,0,0,0.4); }
+
+    .nav-btn { position: absolute; top:50%; transform: translateY(-50%); background: rgba(0,0,0,0.4); color: #fff; border: none; border-radius:50%; width:50px;height:50px;font-size:24px;cursor:pointer;transition: background 0.3s ease; z-index:5; }
+    .nav-btn:hover { background: rgba(0,0,0,0.6); }
+    #prevBtn { left:20px; }
+    #nextBtn { right:20px; }
+
+    @media (max-width: 1024px) { .gallery img { width: 55%; } }
+    @media (max-width: 680px) { .gallery { height:300px; } .gallery img { width:70%; } }
+
+  /* Fullscreen zoom overlay */
+.fullscreen-zoom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s;
+}
+
+.fullscreen-zoom.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.fullscreen-zoom img {
+  max-width: 90%;
+  max-height: 90%;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+}
+
+.fullscreen-zoom .close-zoom {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 36px;
+  color: #fff;
+  background: rgba(0,0,0,0.4);
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+  line-height: 45px;
+  text-align: center;
+  transition: background 0.3s;
+}
+.fullscreen-zoom .close-zoom:hover {
+  background: rgba(0,0,0,0.7);
+}
+  
+</style>
+</head>
+<body>
+  <!-- NAV -->
+  <header>
+    <div class="container nav-inner">
+      <div class="brand">Shradhanjali Guest House</div>
+      <nav>
+        <button class="hamburger" aria-label="open menu" id="menuBtn">☰</button>
+        <ul id="menuList" aria-hidden="true">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#rooms">Lodging</a></li>
+          <li><a href="#experiences">Experiences</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a class="btn-cta" href="#booking">Book Now</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!----pop up---->
+  <div id="popupOverlay" class="popup-overlay">
+  <div class="popup-box">
+    <img src="img/image 6.jpg" alt="Welcome offer" class="popup-image">
+    <button id="closePopup" class="popup-close">×</button>
+  </div>
+</div>
+
+  <!-- HERO -->
+  <main>
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="caps">Welcome to</p>
+          <h1 class="hero-title">Shradhanjali Hotel & Events</h1>
+          <p class="hero-sub">A calm, green escape — exquisite dining, lavish buffets, and tailor-made wedding lodging to make your special day unforgettable.</p>
+
+          <div class="hero-cta">
+            <a class="btn btn-cta" href="#booking">Reserve a Date</a>
+            <a class="btn btn-outline" href="#services">See Services</a>
+          </div>
+
+          <div style="margin-top:20px;color:var(--muted);font-size:.95rem">
+            <strong>Location:</strong> Santiniketan region — close to nature & easy access.
+          </div>
+        </div>
+
+        <div class="hero-image reveal">
+          <img src="img/logo.jpg" alt="Hotel veranda with greenery">
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="services container section">
+      <h2 style="font-family:'Playfair Display',serif;color:var(--deep-green);font-size:1.8rem;margin-bottom:18px">Our Offerings</h2>
+      <div class="services-grid reveal">
+        <article class="service-card">
+          <div class="service-image"><img src="img/image 1.jpg" alt="Restaurant dining"></div>
+          <h3>Fine Dining Restaurant</h3>
+          <p class="muted">Seasonal local cuisine and global favorites served in an elegant indoor-outdoor setting. Private dining rooms available.</p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-image"><img src="img/image 6.jpg" alt="Buffet spread"></div>
+          <h3>Buffet & Catering</h3>
+          <p class="muted">Lavish buffet arrangements for guests of all sizes — customizable menus, live stations, and professional service staff.</p>
+        </article>
+
+        <article class="service-card">
+          <div class="service-image"><img src="img/image 7.jpg" alt="Wedding lodging"></div>
+          <h3>Wedding Lodging & Banquet</h3>
+          <p class="muted">Dedicated lodging for wedding parties, banquet halls, and prepared spaces for ceremonies — packages to fit every budget.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- HIGHLIGHTS / MENU -->
+    <section class="highlights container section reveal">
+      <div style="display:flex;gap:20px;align-items:stretch;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px">
+          <h3 style="font-family:'Playfair Display',serif;color:var(--deep-green);margin-top:0">Chef's Highlights</h3>
+          <div class="menu-grid">
+            <div class="menu-card">
+              <h4>Signature Thali</h4>
+              <p class="muted">A curated plate showcasing regional specialties with seasonal produce.</p>
+            </div>
+            <div class="menu-card">
+              <h4>Live Grill Station</h4>
+              <p class="muted">Custom grilled meats, seafood, and vegetarian options made-to-order during buffets and events.</p>
+            </div>
+          </div>
+        </div>
+
+        <aside style="width:2000px;min-width:260px">
+          <div class="menu-card">
+            <h4>Private Events</h4>
+            <p class="muted">Dedicated event coordinator, tasting sessions, and venue decoration services to make your day perfect.</p>
+            <div style="margin-top:12px">
+              <a href="#booking" class="btn btn-cta">Plan an Event</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ROOMS -->
+    <section id="rooms" class="rooms container section">
+      <h2 style="font-family:'Playfair Display',serif;color:var(--deep-green);font-size:1.6rem;margin-bottom:14px">Lodging & Suites</h2>
+      <div class="rooms-grid reveal">
+        <article class="room-card">
+          <img src="img/image 1.jpg" alt="Deluxe room">
+          <div class="room-body">
+            <h3>Deluxe Room</h3>
+            <p class="muted">Comfortable double bed, private balcony, garden view. Suitable for couples & small families.</p>
+            <div class="room-meta">
+              <div><strong>From ₹4,500/night</strong></div>
+              <div><a class="btn-outline" href="#booking">Book</a></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="room-card">
+          <img src="img/image 2.jpg" alt="Suite room">
+          <div class="room-body">
+            <h3>Family Suite</h3>
+            <p class="muted">Spacious suite with two rooms, lounge area, and priority buffet seating for events.</p>
+            <div class="room-meta">
+              <div><strong>From ₹8,500/night</strong></div>
+              <div><a class="btn-outline" href="#booking">Book</a></div>
+            </div>
+          </div>
+        </article>
+
+        <article class="room-card">
+          <img src="img/image 3.jpg" alt="Banquet lodging">
+          <div class="room-body">
+            <h3>Wedding Block</h3>
+            <p class="muted">Group lodging for wedding parties — reserved floors, event logistics support, and transport coordination.</p>
+            <div class="room-meta">
+              <div><strong>Contact for rates</strong></div>
+              <div><a class="btn-outline" href="#contact">Contact</a></div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- COLLAGE / EXPERIENCES -->
+  <section id="experiences" class="experience-section">
+    <div class="container">
+      <h2 class="section-title">Sites & Experiences</h2>
+      <div class="gallery" id="gallery">
+        <img src="img/Amar kutir.png" alt="">
+        <img src="img/Gitanjali.png" alt="">
+        <img src="img/Visva Bharati.png" alt="">
+        <img src="img/Srijani.png" alt="">
+        <img src="img/Sonarjuri hat.png" alt="">
+        <img src="img/image 1.jpg" alt="">
+        <img src="img/image 2.jpg" alt="">
+        <img src="img/image 3.jpg" alt="">
+      </div>
+      <div id="fullscreenZoom" class="fullscreen-zoom">
+    <button class="close-zoom" id="closeZoom">&times;</button>
+    <img src="" alt="Zoomed Image" id="zoomedImage">
+  </div>
+
+   </div>
+  </section>
+
+    <!-- BOOKING -->
+    <section id="booking" class="container booking reveal">
+      <div class="booking-grid">
+        <div class="form-card">
+          <h3 style="margin-top:0;color:var(--deep-green)">Request Booking / Event Inquiry</h3>
+          <form id="bookingForm" novalidate>
+            <div class="form-row">
+              <input name="name" id="name" placeholder="Full name" required>
+              <input name="phone" id="phone" placeholder="Phone number" required>
+            </div>
+            <div class="form-row">
+              <input name="email" id="email" type="email" placeholder="Email address" required>
+              <select name="service" id="service" required>
+                <option value="">I'm interested in...</option>
+                <option value="restaurant">Restaurant reservation</option>
+                <option value="buffet">Buffet/catering</option>
+                <option value="wedding">Wedding lodging & event</option>
+                <option value="room">Rooms & lodging</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <input type="date" id="date" name="date" required>
+              <input type="time" id="time" name="time">
+            </div>
+
+            <div class="form-row">
+              <textarea name="notes" id="notes" placeholder="Additional details (guest count, preferences)"></textarea>
+            </div>
+
+            <div style="display:flex;gap:12px;align-items:center;margin-top:8px">
+              <button type="submit" class="btn btn-cta">Send Inquiry</button>
+              <div id="formMsg" class="muted" aria-live="polite"></div>
+            </div>
+          </form>
+        </div>
+
+        <aside class="booking-info">
+          <div style="background:var(--card-bg);padding:18px;border-radius:10px;box-shadow:0 10px 26px rgba(0,0,0,.06)">
+            <h4 style="margin-top:0;color:var(--deep-green)">Quick Info</h4>
+            <p class="muted">We offer tailored wedding packages, private dining rooms, and buffet menus sized for 50–150 guests. Tell us your date and guest estimate and we'll follow up with availability and a custom quote.</p>
+            <p style="margin-top:12px"><strong>Phone:</strong> +91 98765 43210<br><strong>Email:</strong> events@mrigana.example</p>
+            <div style="margin-top:12px">
+              <a class="btn-outline" href="#contact">Contact Us</a>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="container section reveal" style="padding-top:24px">
+      <h3 style="font-family:'Playfair Display',serif;color:var(--deep-green);margin-top:0">Contact & Location</h3>
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:18px">
+        <div>
+          <p class="muted">Shradhanjali Restaurant & Events<br>Near Santiniketan Gardens, West Bengal</p>
+          <p class="muted"><strong>Opening Hours:</strong> 8:00 AM — 11:00 PM (Restaurant), Events by appointment.</p>
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3741939.7527064392!2d82.80405881250002!3d23.667443900000013!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39f9ddf37fbd9d23%3A0xf834e7d997233073!2sShradhanjali%20Guest%20House!5e0!3m2!1sen!2sin!4v1761198551559!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+
+        <aside style="background:var(--card-bg);padding:16px;border-radius:10px;box-shadow:0 8px 20px rgba(0,0,0,.06)">
+          <h4 style="margin-top:0;color:var(--deep-green)">Reach us</h4>
+          <p class="muted">Phone: +91 98765 43210<br>Email: shradhanjaliguesthouse@gmail.com</p>
+          <p class="muted">For wedding inquiries, please include the date, expected guests and any special requests.</p>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div>
+        <div style="font-weight:700;color:var(--deep-green)">Shradhanjali Restaurant & Events</div>
+        <div class="muted" style="margin-top:8px">Comfort • Cuisine • Celebrations</div>
+      </div>
+      <div class="muted">© <span id="year"></span> Shradhanjali Restaurant. All rights reserved.</div>
+      <div class="muted">Designed for events, weddings, and unforgettable stays.</div>
+    </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    // Mobile nav toggle
+    const menuBtn = document.getElementById('menuBtn');
+    const menuList = document.getElementById('menuList');
+    menuBtn.addEventListener('click', () => {
+      const open = menuList.classList.toggle('open');
+      menuList.setAttribute('aria-hidden', !open);
+    });
+
+    // Simple reveal on scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) e.target.classList.add('visible');
+      });
+    }, {threshold:0.12});
+    reveals.forEach(r => obs.observe(r));
+
+    // Year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Simple form validation & mock submission
+    const form = document.getElementById('bookingForm');
+    const msg = document.getElementById('formMsg');
+    form.addEventListener('submit', (ev) => {
+      ev.preventDefault();
+      // Minimal validation
+      const name = form.name.value.trim();
+      const phone = form.phone.value.trim();
+      const email = form.email.value.trim();
+      const service = form.service.value;
+      if (!name || !phone || !email || !service) {
+        msg.textContent = 'Please fill name, phone, email and choose a service.';
+        msg.style.color = 'crimson';
+        return;
+      }
+      // Simulate sending
+      msg.style.color = 'var(--deep-green)';
+      msg.textContent = 'Sending inquiry…';
+      setTimeout(() => {
+        msg.textContent = 'Inquiry sent! We will contact you shortly.';
+        form.reset();
+      }, 900);
+    });
+    // --- Popup logic ---
+window.addEventListener('load', () => {
+  const popup = document.getElementById('popupOverlay');
+  const closeBtn = document.getElementById('closePopup');
+
+  // Show popup 1 second after load
+  setTimeout(() => {
+    popup.classList.add('active');
+  }, 1000);
+
+  // Close on click or after 6 seconds
+  closeBtn.addEventListener('click', () => popup.classList.remove('active'));
+  popup.addEventListener('click', (e) => {
+    if (e.target === popup) popup.classList.remove('active');
+  });
+
+  setTimeout(() => {
+    popup.classList.remove('active');
+  }, 6000);
+});
+
+/* Roate*/
+const slides = document.querySelectorAll(".gallery img");
+let current = 0;
+let autoSlide;
+
+const zoomOverlay = document.getElementById("fullscreenZoom");
+const zoomedImg = document.getElementById("zoomedImage");
+const closeZoom = document.getElementById("closeZoom");
+let zoomed = false;
+
+function updateSlides() {
+  slides.forEach((slide,index)=>{
+    slide.className = "";
+    if(index===current) slide.classList.add("active");
+    else if(index === (current-1+slides.length)%slides.length) slide.classList.add("prev");
+    else if(index === (current+1)%slides.length) slide.classList.add("next");
+    else slide.classList.add("behind");
+  });
+}
+
+function nextSlide(){ if(!zoomed){ current=(current+1)%slides.length; updateSlides(); } }
+function prevSlide(){ if(!zoomed){ current=(current-1+slides.length)%slides.length; updateSlides(); } }
+
+function startAutoSlide(){ autoSlide=setInterval(nextSlide,120000); } // 2 mins
+function resetAutoSlide(){ clearInterval(autoSlide); startAutoSlide(); }
+
+const gallery = document.getElementById("gallery");
+
+// Click / Tap logic
+gallery.addEventListener("click",(e)=>{
+  const activeImg = slides[current];
+  if(e.target === activeImg){
+    // Show fullscreen overlay
+    zoomed = true;
+    zoomedImg.src = activeImg.src;
+    zoomOverlay.classList.add("active");
+    clearInterval(autoSlide);
+  } else {
+    nextSlide();
+    resetAutoSlide();
+  }
+});
+
+// Close fullscreen zoom
+closeZoom.addEventListener("click", () => {
+  zoomOverlay.classList.remove("active");
+  zoomed = false;
+  startAutoSlide();
+});
+
+zoomOverlay.addEventListener("click", (e) => {
+  if(e.target === zoomOverlay){
+    zoomOverlay.classList.remove("active");
+    zoomed = false;
+    startAutoSlide();
+  }
+});
+
+// Swipe support
+let startX = 0;
+gallery.addEventListener("touchstart", (e)=>{ startX = e.touches[0].clientX; });
+gallery.addEventListener("touchend", (e)=>{
+  const endX = e.changedTouches[0].clientX;
+  const diff = endX - startX;
+  if(Math.abs(diff)>50){
+    if(diff<0) nextSlide(); else prevSlide();
+    resetAutoSlide();
+  }
+});
+
+// Nav buttons
+document.getElementById("nextBtn").addEventListener("click",()=>{ nextSlide(); resetAutoSlide(); });
+document.getElementById("prevBtn").addEventListener("click",()=>{ prevSlide(); resetAutoSlide(); });
+
+// Initialize
+updateSlides();
+startAutoSlide();
+</script>
+</body>
+</html>
