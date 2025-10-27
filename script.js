@@ -1,5 +1,5 @@
-    // Mobile nav toggle
-   const menuBtn = document.getElementById("menuBtn");
+// Mobile nav toggle
+const menuBtn = document.getElementById("menuBtn");
 const closeBtn = document.getElementById("closeBtn");
 const menuList = document.getElementById("menuList");
 const nav = menuBtn.closest("nav");
@@ -14,43 +14,78 @@ closeBtn.addEventListener("click", () => {
   nav.classList.remove("menu-open");
 });
 
+// Simple reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, {threshold:0.12});
+reveals.forEach(r => obs.observe(r));
 
-    // Simple reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
-      });
-    }, {threshold:0.12});
-    reveals.forEach(r => obs.observe(r));
+// Year in footer
+document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Year in footer
-    document.getElementById('year').textContent = new Date().getFullYear();
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwI5Wqw6EzagBvBdaIjkLVwSqHqKxLLSpfo93pKCfqfHWTPWqpn2uKzl-d6uGvde2r-7A/exec';
 
-    // Simple form validation & mock submission
-    const form = document.getElementById('bookingForm');
-    const msg = document.getElementById('formMsg');
-    form.addEventListener('submit', (ev) => {
-      ev.preventDefault();
-      // Minimal validation
-      const name = form.name.value.trim();
-      const phone = form.phone.value.trim();
-      const email = form.email.value.trim();
-      const service = form.service.value;
-      if (!name || !phone || !email || !service) {
-        msg.textContent = 'Please fill name, phone, email and choose a service.';
-        msg.style.color = 'crimson';
-        return;
-      }
-      // Simulate sending
-      msg.style.color = 'var(--deep-green)';
-      msg.textContent = 'Sending inquiry…';
-      setTimeout(() => {
-        msg.textContent = 'Inquiry sent! We will contact you shortly.';
-        form.reset();
-      }, 900);
+const form = document.getElementById('bookingForm');
+const msg = document.getElementById('formMsg');
+
+form.addEventListener('submit', async (ev) => {
+  ev.preventDefault();
+  const name = form.name.value.trim();
+  const phone = form.phone.value.trim();
+  const email = form.email.value.trim();
+  const service = form.service.value;
+  const date = form.date.value;
+  const time = form.time.value || 'Not specified';
+  const notes = form.notes.value || 'No additional details';
+  
+  if (!name || !phone || !email || !service || !date) {
+    msg.textContent = 'Please fill all required fields: name, phone, email, service, and date.';
+    msg.style.color = 'crimson';
+    return;
+  }
+  
+  const formData = {
+    name: name,
+    phone: phone,
+    email: email,
+    service: service,
+    date: date,
+    time: time,
+    notes: notes,
+    timestamp: new Date().toLocaleString(),
+    source: 'Hotel Booking Website'
+  };
+  
+  msg.style.color = 'var(--deep-green)';
+  msg.textContent = 'Sending inquiry…';
+  
+  try {
+    const response = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
     });
-    // --- Popup logic ---
+    
+    msg.textContent = 'Inquiry sent successfully! We will contact you shortly.';
+    form.reset();
+  
+    setTimeout(() => {
+      msg.textContent = '';
+    }, 5000);
+    
+  } catch (error) {
+    console.error('Error sending form:', error);
+    msg.style.color = 'crimson';
+    msg.textContent = 'Failed to send inquiry. Please try again or contact us directly.';
+  }
+});
+
 window.addEventListener('load', () => {
   const popup = document.getElementById('popupOverlay');
   const closeBtn = document.getElementById('closePopup');
@@ -71,7 +106,6 @@ window.addEventListener('load', () => {
   }, 6000);
 });
 
-/* Roate*/
 const slides = document.querySelectorAll(".gallery img");
 let current = 0;
 let autoSlide;
@@ -148,7 +182,3 @@ document.getElementById("prevBtn").addEventListener("click",()=>{ prevSlide(); r
 // Initialize
 updateSlides();
 startAutoSlide();
-
-
-
-
